@@ -1,3 +1,5 @@
-ds/
 out/
 venv
+
+ds/samples/
+ds/csv_example/
