@@ -3,3 +3,9 @@ venv
 
 ds/samples/
 ds/csv_example/
+
+# Python cache
+*.pyc
+*.ipyb_chec
+*/__pycache__
+*.ipynb_checkpoints

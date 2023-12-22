@@ -9,6 +9,8 @@ Alocatted in [URL](https://dataverse.harvard.edu/file.xhtml?persistentId=doi:10.
 
 ```bash
 wget https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/HG7NV7/EIR0RA
+wget https://dataverse.harvard.edu/api/access/datafile/:persistentId?persistentId=doi:10.7910/DVN/HG7NV7/QJKL3I
+
 
 bzip2 -d "file.bz2" 
 ```
@@ -17,6 +19,6 @@ bzip2 -d "file.bz2"
 
 
 ```bash
-spark-submit app/app.py --data_path=./ds/flight-2008.csv.bz2
+spark-submit --num-executors 4 app/app.py --data_path=./ds/ --params_path=./app/model_params.json --out_path=./output
 ```
 
