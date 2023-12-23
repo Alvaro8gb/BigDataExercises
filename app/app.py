@@ -19,6 +19,7 @@ def load_data(spark, path:str):
 
     combined_df = reduce(lambda df1, df2: df1.unionAll(df2), df_frames)
 
+    print("Number of instances:", combined_df.count())
     return combined_df
 
 def load_params(path:str)-> dict:
@@ -85,6 +86,11 @@ def main(data_path:str, params_path:str, out_path:str=None):
 
     analysis_result = analysis(flights_df)
 
+    # TODO FSS
+    # TODO Split
+    # TODO Training
+    # TODO Evalaute
+
     if out_path:
         analysis_result.write.partitionBy("Year").json(out_path +"/analys")
 
@@ -93,5 +99,3 @@ def main(data_path:str, params_path:str, out_path:str=None):
 if __name__ == "__main__":
     # Use Fire to automatically generate a command-line interface
     fire.Fire(main)
-
-
