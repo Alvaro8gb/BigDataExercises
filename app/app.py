@@ -8,27 +8,31 @@ from functools import reduce
 from db import create_folder_if_not_exists
 
 
-def load_data(spark, path:str):
+def load_data(spark, path: str):
 
-    file_paths = [os.path.join(path, file) for file in os.listdir(path) if file.endswith(".bz2")]
+    file_paths = [os.path.join(path, file)
+                  for file in os.listdir(path) if file.endswith(".bz2")]
 
     if len(file_paths) == 0:
         raise Exception("Not data files found!!")
 
-    df_frames = [spark.read.csv(f, header=True, inferSchema=True) for f in tqdm(file_paths, "Loading source files from path: "+path)]
+    df_frames = [spark.read.csv(f, header=True, inferSchema=True) for f in tqdm(
+        file_paths, "Loading source files from path: "+path)]
 
     combined_df = reduce(lambda df1, df2: df1.unionAll(df2), df_frames)
 
     print("Number of instances:", combined_df.count())
     return combined_df
 
-def load_params(path:str)-> dict:
+
+def load_params(path: str) -> dict:
     params = {}
     with open(path) as f:
         params = json.load(f)
 
     return params
-        
+
+
 def prepocesing(flights_df):
     features_to_drop = [
         "ArrTime", "ActualElapsedTime", "AirTime", "TaxiIn",
@@ -54,7 +58,7 @@ def analysis(flights_df):
     return analysis_result
 
 
-def main(data_path:str, params_path:str, out_path:str=None):
+def main(data_path: str, params_path: str, out_path: str = None):
     """
         Run the application.
 
@@ -68,7 +72,7 @@ def main(data_path:str, params_path:str, out_path:str=None):
         Example:
         >>> main("/path/to/data.csv", "/path/to/params.json")
     """
-    
+
     if out_path:
         print("Try to create folder", out_path)
         create_folder_if_not_exists(out_path)
@@ -92,9 +96,10 @@ def main(data_path:str, params_path:str, out_path:str=None):
     # TODO Evalaute
 
     if out_path:
-        analysis_result.write.partitionBy("Year").json(out_path +"/analys")
+        analysis_result.write.partitionBy("Year").json(out_path + "/analys")
 
     spark.stop()
+
 
 if __name__ == "__main__":
     # Use Fire to automatically generate a command-line interface
