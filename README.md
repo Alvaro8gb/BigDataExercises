@@ -19,6 +19,10 @@ bzip2 -d "file.bz2"
 
 
 ```bash
-spark-submit --num-executors 4 app/app.py --data_path=./ds/ --params_path=./app/model_params.json --out_path=./output
+pipenv shell
+pipenv run spark
 ```
+
+## To see the UI of spark : [link](http://localhost:4040/jobs/)
+
 

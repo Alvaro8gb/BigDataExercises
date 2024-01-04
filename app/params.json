@@ -1,0 +1,14 @@
+{
+    "test_size": 0.3,
+    "features_to_drop":  [
+        "ArrTime", "ActualElapsedTime", "AirTime", "TaxiIn",
+        "Diverted", "CarrierDelay", "WeatherDelay", "NASDelay",
+        "SecurityDelay", "LateAircraftDelay"
+    ],
+    "string_features": ["TailNum", "Origin", "Dest", "TaxiOut"],
+    "integer_features": ["FlightNum", "Distance", "Cancelled"],
+    "double_features": ["DepTime", "CRSElapsedTime", "ArrDelay", "DepDelay", "CRSDepTime", "CRSArrTime"],
+    "target": "ArrDelay",
+    "seed" : 8,
+    "logLevel": "ERROR"
+}
