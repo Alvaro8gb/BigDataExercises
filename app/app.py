@@ -1,4 +1,6 @@
 import fire
+import time
+
 from pyspark.sql import SparkSession
 from db import create_folder_if_not_exists
 
@@ -30,7 +32,7 @@ def main(data_path: str, params_path: str, out_path: str = None):
     spark = SparkSession.builder.appName("FlightAnalysisApp").getOrCreate()
 
     params = load_params(params_path)
-    
+
     print("Paramns\n", params)
 
     spark.sparkContext.setLogLevel(params["logLevel"])
@@ -40,23 +42,29 @@ def main(data_path: str, params_path: str, out_path: str = None):
     flights_df = load_data(spark, data_path)
 
     flights_df = cast(flights_df, params)
-    
+
     analysis_result = analysis(flights_df)
 
     if out_path:
         analysis_result.write.partitionBy("Year").json(out_path + "/analys")
 
     flights_df = preprocess(flights_df, params)
-    
+
     flights_df.printSchema()
 
-    train_size = 1- params["test_size"]
-    (train_data, test_data) = flights_df.randomSplit([train_size, params["test_size"]], seed=params["seed"])
+    train_size = 1 - params["test_size"]
+    (train_data, test_data) = flights_df.randomSplit(
+        [train_size, params["test_size"]], seed=params["seed"])
 
     fit_and_evaluate(train_data, test_data, params["target"])
-    
+
     spark.stop()
 
+
 if __name__ == "__main__":
+
+    start_time = time.time()
     # Use Fire to automatically generate a command-line interface
     fire.Fire(main)
+    end_time = time.time()
+    print(f"Execution time: {end_time - start_time} segs")

@@ -30,7 +30,6 @@ def validate_dictionary(data):
     return True
 
 
-
 def load_data(spark, path: str):
 
     file_paths = [os.path.join(path, file)
@@ -39,7 +38,8 @@ def load_data(spark, path: str):
     if len(file_paths) == 0:
         raise Exception("Not data files found!!")
 
-    df_frames = [spark.read.csv(f, header=True, inferSchema=True) for f in tqdm(file_paths, "Loading source files from path: "+path)]
+    df_frames = [spark.read.csv(f, header=True, inferSchema=True) for f in tqdm(
+        file_paths, "Loading source files from path: "+path)]
 
     combined_df = reduce(lambda df1, df2: df1.unionAll(df2), df_frames)
 

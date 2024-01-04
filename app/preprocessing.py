@@ -17,13 +17,13 @@ def has_nulls(df, percentage=0.2):
 
     total_rows = df.count()
     null_counts_df = df.select([count(when(col(c).contains('None') |
-                                                   col(c).contains('NULL') |
-                                                   col(c).contains('NA') |
-                                                   (col(c) == '') |
-                                                   col(c).isNull() |
-                                                   isnan(c), c
-                                                   )).alias(c)
-                                        for c in df.columns])
+                                           col(c).contains('NULL') |
+                                           col(c).contains('NA') |
+                                           (col(c) == '') |
+                                           col(c).isNull() |
+                                           isnan(c), c
+                                           )).alias(c)
+                                for c in df.columns])
 
     null_counts_df.show()
 
@@ -56,6 +56,7 @@ def classify_features(df):
 
     return string_features, numeric_features
 
+
 def cast(df, params):
 
     for column in params["string_features"]:
@@ -63,7 +64,7 @@ def cast(df, params):
 
     for column in params["integer_features"]:
         df = df.withColumn(column, col(column).cast(IntegerType()))
-    
+
     for column in params["double_features"]:
         df = df.withColumn(column, col(column).cast(DoubleType()))
 
@@ -72,22 +73,23 @@ def cast(df, params):
 
     return df
 
+
 def impute(df):
 
-    string_columns = [column for column, dtype in df.dtypes if dtype == 'string']
-    numeric_columns = [column for column, dtype in df.dtypes if dtype in {'int', "double"}]
+    string_columns = [column for column,
+                      dtype in df.dtypes if dtype == 'string']
+    numeric_columns = [column for column,
+                       dtype in df.dtypes if dtype in {'int', "double"}]
 
     values_to_encoded = {}
     for column in string_columns:
 
-            most_common_value = df.groupBy(column) \
-                                    .count() \
-                                    .orderBy("count", ascending=True) \
-                                    .first()[0]
-        
-            values_to_encoded[column] = most_common_value
+        most_common_value = df.groupBy(column) \
+            .count() \
+            .orderBy("count", ascending=True) \
+            .first()[0]
 
-
+        values_to_encoded[column] = most_common_value
 
     for column in numeric_columns:
         if column in df.columns:
@@ -100,11 +102,14 @@ def impute(df):
 
     return df
 
+
 def encode(df):
 
-    string_columns = [column for column, dtype in df.dtypes if dtype == 'string']
-    numeric_columns = [column for column, dtype in df.dtypes if dtype in {'int', "double"}]
-    
+    string_columns = [column for column,
+                      dtype in df.dtypes if dtype == 'string']
+    numeric_columns = [column for column,
+                       dtype in df.dtypes if dtype in {'int', "double"}]
+
     print("Final String columns:", string_columns)
 
     stages = []
@@ -117,8 +122,9 @@ def encode(df):
         stages += [string_indexer, one_hot_encoder]
 
     # Assemble all features into a single vector
-    all_feature_columns = numeric_columns + [f"{feature}_encoded" for feature in string_columns]
-    
+    all_feature_columns = numeric_columns + \
+        [f"{feature}_encoded" for feature in string_columns]
+
     vector_assembler = VectorAssembler(
         inputCols=all_feature_columns, outputCol="features")
     stages += [vector_assembler]
@@ -129,8 +135,9 @@ def encode(df):
 
     return pre_pipeline.fit(df).transform(df)
 
+
 def preprocess(df, params: dict):
-    
+
     print("Starting Preparation")
 
     df = drop_not_interested(df, params["features_to_drop"])
@@ -147,7 +154,7 @@ def preprocess(df, params: dict):
     df.printSchema()
 
     df = impute(df)
-    
+
     df = encode(df)
 
     print("Preprocseing Finish")
