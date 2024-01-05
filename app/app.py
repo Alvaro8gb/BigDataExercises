@@ -6,7 +6,7 @@ from db import create_folder_if_not_exists
 
 from input import load_data, load_params
 from preprocessing import preprocess, cast
-from eda import analysis
+from eda import analysis, correlation
 from modeling import fit_and_evaluate
 
 
@@ -33,7 +33,7 @@ def main(data_path: str, params_path: str, out_path: str = None):
 
     params = load_params(params_path)
 
-    print("Paramns\n", params)
+    print("\nParamns:\n", params)
 
     spark.sparkContext.setLogLevel(params["logLevel"])
 
@@ -43,12 +43,14 @@ def main(data_path: str, params_path: str, out_path: str = None):
 
     flights_df = cast(flights_df, params)
 
-    analysis_result = analysis(flights_df)
+    analysis_result = analysis(flights_df, params["target"])
 
     if out_path:
         analysis_result.write.partitionBy("Year").json(out_path + "/analys")
 
     flights_df = preprocess(flights_df, params)
+
+    correlation(flights_df, params["target"])
 
     flights_df.printSchema()
 
@@ -56,7 +58,7 @@ def main(data_path: str, params_path: str, out_path: str = None):
     (train_data, test_data) = flights_df.randomSplit(
         [train_size, params["test_size"]], seed=params["seed"])
 
-    fit_and_evaluate(train_data, test_data, params["target"])
+    fit_and_evaluate(train_data, test_data, params["target"], params["model_params"])
 
     spark.stop()
 

@@ -19,7 +19,8 @@ def validate_dictionary(data):
     # List of required keys
     required_keys = [
         "test_size", "features_to_drop", "string_features", "target",
-        "integer_features", "double_features", "seed", "logLevel"
+        "integer_features", "double_features", "seed", "logLevel", "model_params", 
+        "null_th", "corr_th"
     ]
 
     # Check if all required keys are in the dictionary

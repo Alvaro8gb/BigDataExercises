@@ -1,5 +1,4 @@
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import min, max, col, floor
 from functools import reduce
 
 
@@ -12,10 +11,9 @@ def create_histogram(df: DataFrame, n_bins: int, column_name: str):
     print('Histogram:', column_name)
 
     for bin_start, count in list(zip(hist_data[0], hist_data[1])):
-        bin_end = bin_start + 2
         # Adjust the scale for visualization
         bar_length = int(40 * count / max_count)
-        print(f"{bin_start:.2f} - {bin_end:.2f}: {'*' * bar_length} ({count})")
+        print(f"{bin_start:.2f}: {'*' * bar_length} ({count})")
 
 
 def explore(df):
@@ -31,11 +29,18 @@ def explore(df):
 
     return delay_month
 
+def correlation(df, target:str):
 
-def analysis(df):
+    numeric_columns = [column for column,
+                       dtype in df.dtypes if dtype in {'int', "double"}]
+
+    for col in numeric_columns:
+        print(col, "-", target, "Covariance:", df.stat.cov(col, target), "Correlation:", df.stat.corr(col, target) )
+
+def analysis(df, target:str):
 
     delay_month = explore(df)
 
-    create_histogram(df, 30, "ArrDelay")
+    create_histogram(df, 30, target)
 
     return delay_month

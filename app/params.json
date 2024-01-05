@@ -10,5 +10,12 @@
     "double_features": ["DepTime", "CRSElapsedTime", "ArrDelay", "DepDelay", "CRSDepTime", "CRSArrTime"],
     "target": "ArrDelay",
     "seed" : 8,
-    "logLevel": "ERROR"
+    "logLevel": "ERROR",
+    "model_params":{
+        "maxIter":10,
+        "regParam":0.3,
+        "elasticNetParam":0.8
+    },
+    "null_th": 0.2,
+    "corr_th":0.05
 }

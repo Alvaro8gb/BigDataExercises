@@ -25,6 +25,7 @@ def has_nulls(df, percentage=0.2):
                                            )).alias(c)
                                 for c in df.columns])
 
+    print("Nulls per col:")
     null_counts_df.show()
 
     columns_to_drop = [col_name for col_name in null_counts_df.columns if null_counts_df.select(
@@ -69,7 +70,7 @@ def cast(df, params):
         df = df.withColumn(column, col(column).cast(DoubleType()))
 
     df.printSchema()
-    print("Dataframe Enconded")
+    print("Dataframe Casted")
 
     return df
 
@@ -133,8 +134,17 @@ def encode(df):
 
     pre_pipeline = Pipeline(stages=stages)
 
-    return pre_pipeline.fit(df).transform(df)
+    return pre_pipeline.fit(df).transform(df), numeric_columns
 
+
+def drop_no_correlated(df, numeric_columns:list, target:str, corr_th:float):
+
+    selected_features = [col for col in numeric_columns if abs(df.stat.corr(col, target) ) < corr_th]
+
+    print("Dropping for correlation under", corr_th)
+    print(selected_features)
+
+    return drop_not_interested(df, selected_features)
 
 def preprocess(df, params: dict):
 
@@ -145,7 +155,7 @@ def preprocess(df, params: dict):
     columns_to_drop = [col_name for col_name in df.columns if has_single_value(
         df, col_name)]
 
-    columns_to_drop.extend(has_nulls(df, 0.2))
+    columns_to_drop.extend(has_nulls(df, params["null_th"]))
 
     print("Columns dropped:", columns_to_drop)
 
@@ -155,9 +165,11 @@ def preprocess(df, params: dict):
 
     df = impute(df)
 
-    df = encode(df)
+    df, numeric_columns = encode(df)
 
-    print("Preprocseing Finish")
+    df = drop_no_correlated(df, numeric_columns, params["target"], params["corr_th"])
+
+    print("Preprocesing Finish")
 
     df.show(n=5)
 
