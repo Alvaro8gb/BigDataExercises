@@ -29,11 +29,12 @@ def main(data_path: str, params_path: str, out_path: str = None):
         print("Try to create folder", out_path)
         create_folder_if_not_exists(out_path)
 
-    spark = SparkSession.builder.appName("FlightAnalysisApp").getOrCreate()
-
+    
     params = load_params(params_path)
 
     print("\nParamns:\n", params)
+
+    spark = SparkSession.builder.appName("FlightAnalysisApp").getOrCreate()
 
     spark.sparkContext.setLogLevel(params["logLevel"])
 
@@ -54,9 +55,9 @@ def main(data_path: str, params_path: str, out_path: str = None):
 
     flights_df.printSchema()
 
-    train_size = 1 - params["test_size"]
+    train_size = 1 - params["test_split"]
     (train_data, test_data) = flights_df.randomSplit(
-        [train_size, params["test_size"]], seed=params["seed"])
+        [train_size, params["test_split"]], seed=params["seed"])
 
     fit_and_evaluate(train_data, test_data, params["target"], params["model_params"])
 

@@ -13,7 +13,7 @@ numpy = "*"
 ipykernel = "*"
 
 [scripts]
-spark="spark-submit --num-executors 4 --master local[*] app/app.py --data_path=./ds/samples --params_path=./app/params.json"
+spark="spark-submit --num-executors 4 --master local[*] app/app.py --data_path=./ds/sample --params_path=./app/params.json"
 spark-log="spark-submit --num-executors 4 --master local[*] app/app.py --data_path=./ds/ --params_path=./app/params.json --out_path=./output"
 spark-bigData="spark-submit --num-executors 4 --master local[*] app/app.py --data_path=./ds/bigData --params_path=./app/params.json --out_path=./output"
 clean="rm -r output"

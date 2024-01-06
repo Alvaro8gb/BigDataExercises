@@ -84,7 +84,6 @@ def impute(df):
 
     values_to_encoded = {}
     for column in string_columns:
-
         most_common_value = df.groupBy(column) \
             .count() \
             .orderBy("count", ascending=True) \
@@ -93,7 +92,6 @@ def impute(df):
         values_to_encoded[column] = most_common_value
 
     for column in numeric_columns:
-        if column in df.columns:
             mean_value = df.agg(mean(col(column))).collect()[0][0]
             values_to_encoded[column] = mean_value
 
