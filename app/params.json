@@ -10,7 +10,7 @@
     "target": "ArrDelay",
     "seed" : 8,
     "logLevel": "ERROR",
-    "test_split": 0.2,
+    "test_split": 0.3,
     "model_params":{
         "maxIter":10,
         "regParam":0.3,

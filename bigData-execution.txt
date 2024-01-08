@@ -1,0 +1,242 @@
+24/01/08 09:55:39 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+Try to create folder ./output
+Folder created at: ./output
+
+Paramns:
+ {'features_to_drop': ['ArrTime', 'ActualElapsedTime', 'AirTime', 'TaxiIn', 'Diverted', 'CarrierDelay', 'WeatherDelay', 'NASDelay', 'SecurityDelay', 'LateAircraftDelay'], 'string_features': ['TailNum', 'Origin', 'Dest', 'TaxiOut'], 'integer_features': ['FlightNum', 'Distance', 'Cancelled'], 'double_features': ['DepTime', 'CRSElapsedTime', 'ArrDelay', 'DepDelay', 'CRSDepTime', 'CRSArrTime'], 'target': 'ArrDelay', 'seed': 8, 'logLevel': 'ERROR', 'test_split': 0.3, 'model_params': {'maxIter': 10, 'regParam': 0.3, 'elasticNetParam': 0.8}, 'null_th': 0.2, 'corr_th': 0.05}
+24/01/08 09:55:40 INFO SparkContext: Running Spark version 3.5.0
+24/01/08 09:55:40 INFO SparkContext: OS info Linux, 5.15.0-83-generic, amd64
+24/01/08 09:55:40 INFO SparkContext: Java version 11.0.21
+24/01/08 09:55:40 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+24/01/08 09:55:40 INFO ResourceUtils: ==============================================================
+24/01/08 09:55:40 INFO ResourceUtils: No custom resources configured for spark.driver.
+24/01/08 09:55:40 INFO ResourceUtils: ==============================================================
+24/01/08 09:55:40 INFO SparkContext: Submitted application: FlightAnalysisApp
+24/01/08 09:55:40 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+24/01/08 09:55:40 INFO ResourceProfile: Limiting resource is cpu
+24/01/08 09:55:40 INFO ResourceProfileManager: Added ResourceProfile id: 0
+24/01/08 09:55:40 INFO SecurityManager: Changing view acls to: alvaro
+24/01/08 09:55:40 INFO SecurityManager: Changing modify acls to: alvaro
+24/01/08 09:55:40 INFO SecurityManager: Changing view acls groups to: 
+24/01/08 09:55:40 INFO SecurityManager: Changing modify acls groups to: 
+24/01/08 09:55:40 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: alvaro; groups with view permissions: EMPTY; users with modify permissions: alvaro; groups with modify permissions: EMPTY
+24/01/08 09:55:40 INFO Utils: Successfully started service 'sparkDriver' on port 42647.
+24/01/08 09:55:40 INFO SparkEnv: Registering MapOutputTracker
+24/01/08 09:55:40 INFO SparkEnv: Registering BlockManagerMaster
+24/01/08 09:55:40 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+24/01/08 09:55:40 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+24/01/08 09:55:40 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+24/01/08 09:55:40 INFO DiskBlockManager: Created local directory at /tmp/blockmgr-47087058-c25f-48a2-b3c9-d798f7a26307
+24/01/08 09:55:40 INFO MemoryStore: MemoryStore started with capacity 2.2 GiB
+24/01/08 09:55:40 INFO SparkEnv: Registering OutputCommitCoordinator
+24/01/08 09:55:40 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+24/01/08 09:55:40 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+24/01/08 09:55:40 INFO Executor: Starting executor ID driver on host 127.0.1.1
+24/01/08 09:55:40 INFO Executor: OS info Linux, 5.15.0-83-generic, amd64
+24/01/08 09:55:40 INFO Executor: Java version 11.0.21
+24/01/08 09:55:40 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+24/01/08 09:55:40 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@6a723170 for default.
+24/01/08 09:55:40 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 42407.
+24/01/08 09:55:40 INFO NettyBlockTransferService: Server created on 127.0.1.1:42407
+24/01/08 09:55:40 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+24/01/08 09:55:40 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.1.1, 42407, None)
+24/01/08 09:55:40 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.1.1:42407 with 2.2 GiB RAM, BlockManagerId(driver, 127.0.1.1, 42407, None)
+24/01/08 09:55:40 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.1.1, 42407, None)
+24/01/08 09:55:40 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.1.1, 42407, None)
+Loading source files from path: ./ds/bigData: 100%|██████████| 2/2 [00:10<00:00,  5.30s/it]
+Number of instances: 7660110
+root
+ |-- Year: integer (nullable = true)
+ |-- Month: integer (nullable = true)
+ |-- DayofMonth: integer (nullable = true)
+ |-- DayOfWeek: integer (nullable = true)
+ |-- DepTime: double (nullable = true)
+ |-- CRSDepTime: double (nullable = true)
+ |-- ArrTime: string (nullable = true)
+ |-- CRSArrTime: double (nullable = true)
+ |-- UniqueCarrier: string (nullable = true)
+ |-- FlightNum: integer (nullable = true)
+ |-- TailNum: string (nullable = true)
+ |-- ActualElapsedTime: string (nullable = true)
+ |-- CRSElapsedTime: double (nullable = true)
+ |-- AirTime: string (nullable = true)
+ |-- ArrDelay: double (nullable = true)
+ |-- DepDelay: double (nullable = true)
+ |-- Origin: string (nullable = true)
+ |-- Dest: string (nullable = true)
+ |-- Distance: integer (nullable = true)
+ |-- TaxiIn: string (nullable = true)
+ |-- TaxiOut: string (nullable = true)
+ |-- Cancelled: integer (nullable = true)
+ |-- CancellationCode: string (nullable = true)
+ |-- Diverted: integer (nullable = true)
+ |-- CarrierDelay: string (nullable = true)
+ |-- WeatherDelay: string (nullable = true)
+ |-- NASDelay: string (nullable = true)
+ |-- SecurityDelay: string (nullable = true)
+ |-- LateAircraftDelay: string (nullable = true)
+
+Dataframe Casted
++----+-----+------------------+------------------+-------------+
+|Year|Month|     avg(DepDelay)|     avg(ArrDelay)|sum(Distance)|
++----+-----+------------------+------------------+-------------+
+|1990|    1| 7.789718122779521| 7.284448064834729|    243013981|
+|1990|    2|10.311515297890052|10.526859664060686|    219833243|
+|1990|    3| 8.327537335726225| 8.251548617909984|    281198732|
+|1990|    4| 5.026286633475185| 5.033032133410433|    274299267|
+|1990|    5| 5.233568370687484| 5.924552582412505|    281313924|
+|1990|    6|  6.49442397140215| 6.850146731757736|    277829540|
+|1990|    7| 6.225466545087555| 6.307505521213669|    291463081|
+|1990|    8|7.2408253905434075| 7.731526441830619|    293064403|
+|1990|    9|4.5330259288650945|3.7744625975303143|    276657052|
+|1990|   10| 5.010482031908376| 4.856797311138997|    287518539|
+|1990|   11| 4.614178892880325| 3.112666265875103|    271233616|
+|1990|   12|12.607568489300304|12.548941101104118|    277451792|
+|2008|    1| 11.47609595943289|10.188855960349496|    436306761|
+|2008|    2|13.706226305045202|13.077836997760205|    412502573|
+|2008|    3| 12.49126948010275| 11.19236458018227|    452090528|
+|2008|    4| 8.201132754082797| 6.807297481094145|    434051353|
++----+-----+------------------+------------------+-------------+
+
+Histogram: ArrDelay
+-1437.00:  (3)
+-1307.07:  (2)
+-1177.13:  (0)
+-1047.20:  (2)
+-917.27:  (2)
+-787.33:  (0)
+-657.40:  (1)
+-527.47:  (1)
+-397.53:  (1)
+-267.60:  (5)
+-137.67: *********** (1618561)
+-7.73: **************************************** (5807630)
+122.20:  (84622)
+252.13:  (8829)
+382.07:  (1225)
+512.00:  (295)
+641.93:  (161)
+771.87:  (120)
+901.80:  (62)
+1031.73:  (40)
+1161.67:  (22)
+1291.60:  (12)
+1421.53:  (4)
+1551.47:  (0)
+1681.40:  (0)
+1811.33:  (0)
+1941.27:  (0)
+2071.20:  (0)
+2201.13:  (0)
+2331.07:  (2)
+Starting Preparation
+Nulls per col:
++----+-----+----------+---------+-------+----------+----------+-------------+---------+-------+--------------+--------+--------+------+------+--------+-------+---------+----------------+
+|Year|Month|DayofMonth|DayOfWeek|DepTime|CRSDepTime|CRSArrTime|UniqueCarrier|FlightNum|TailNum|CRSElapsedTime|ArrDelay|DepDelay|Origin|  Dest|Distance|TaxiOut|Cancelled|CancellationCode|
++----+-----+----------+---------+-------+----------+----------+-------------+---------+-------+--------------+--------+--------+------+------+--------+-------+---------+----------------+
+|   0|    0|         0|        0| 116900|         0|         0|            0|        0|5317383|           407|  138508|  116900|122921|122722|   93437|5335335|        0|         7595668|
++----+-----+----------+---------+-------+----------+----------+-------------+---------+-------+--------------+--------+--------+------+------+--------+-------+---------+----------------+
+
+Columns dropped: ['TailNum', 'TaxiOut', 'CancellationCode']
+root
+ |-- Year: integer (nullable = true)
+ |-- Month: integer (nullable = true)
+ |-- DayofMonth: integer (nullable = true)
+ |-- DayOfWeek: integer (nullable = true)
+ |-- DepTime: double (nullable = true)
+ |-- CRSDepTime: double (nullable = true)
+ |-- CRSArrTime: double (nullable = true)
+ |-- UniqueCarrier: string (nullable = true)
+ |-- FlightNum: integer (nullable = true)
+ |-- CRSElapsedTime: double (nullable = true)
+ |-- ArrDelay: double (nullable = true)
+ |-- DepDelay: double (nullable = true)
+ |-- Origin: string (nullable = true)
+ |-- Dest: string (nullable = true)
+ |-- Distance: integer (nullable = true)
+ |-- Cancelled: integer (nullable = true)
+
+Values to impute {'UniqueCarrier': 'AQ', 'Origin': 'DLG', 'Dest': 'MKC', 'Year': 1995.6142674191362, 'Month': 5.2769401483790705, 'DayofMonth': 15.695773951026814, 'DayOfWeek': 3.928176357780763, 'DepTime': 1353.76160851945, 'CRSDepTime': 1345.9310110429224, 'CRSArrTime': 1496.2950141708147, 'FlightNum': 1208.3901007948973, 'CRSElapsedTime': 116.34440578179075, 'ArrDelay': 7.8778790741653175, 'DepDelay': 8.304611697142198, 'Distance': 662.091302875121, 'Cancelled': 0.015260877454762399}
+Dataframe imputed
+Final String columns: ['UniqueCarrier', 'Origin', 'Dest']
+Number of stages: 7
+Dropping for correlation under 0.05
+['Month', 'DayofMonth', 'DayOfWeek', 'FlightNum', 'CRSElapsedTime', 'Distance', 'Cancelled']
+Preprocesing Finish
++----+-------+----------+----------+-------------+--------+--------+------+----+-------------------+---------------------+------------+----------------+----------+----------------+--------------------+
+|Year|DepTime|CRSDepTime|CRSArrTime|UniqueCarrier|ArrDelay|DepDelay|Origin|Dest|UniqueCarrier_index|UniqueCarrier_encoded|Origin_index|  Origin_encoded|Dest_index|    Dest_encoded|            features|
++----+-------+----------+----------+-------------+--------+--------+------+----+-------------------+---------------------+------------+----------------+----------+----------------+--------------------+
+|1990| 1707.0|    1630.0|    1723.0|           US|    32.0|    37.0|   CMH| IND|                0.0|       (23,[0],[1.0])|        51.0|(308,[51],[1.0])|      40.0|(311,[40],[1.0])|(655,[0,1,2,3,4,5...|
+|1990| 1706.0|    1630.0|    1723.0|           US|    44.0|    36.0|   CMH| IND|                0.0|       (23,[0],[1.0])|        51.0|(308,[51],[1.0])|      40.0|(311,[40],[1.0])|(655,[0,1,2,3,4,5...|
+|1990| 1629.0|    1630.0|    1723.0|           US|    -8.0|    -1.0|   CMH| IND|                0.0|       (23,[0],[1.0])|        51.0|(308,[51],[1.0])|      40.0|(311,[40],[1.0])|(655,[0,1,2,3,4,5...|
+|1990| 1633.0|    1630.0|    1723.0|           US|    -5.0|     3.0|   CMH| IND|                0.0|       (23,[0],[1.0])|        51.0|(308,[51],[1.0])|      40.0|(311,[40],[1.0])|(655,[0,1,2,3,4,5...|
+|1990| 1630.0|    1630.0|    1723.0|           US|     3.0|     0.0|   CMH| IND|                0.0|       (23,[0],[1.0])|        51.0|(308,[51],[1.0])|      40.0|(311,[40],[1.0])|(655,[0,1,2,3,4,5...|
++----+-------+----------+----------+-------------+--------+--------+------+----+-------------------+---------------------+------------+----------------+----------+----------------+--------------------+
+only showing top 5 rows
+
+Year - ArrDelay Covariance: 13.055442639989288 Correlation: 0.05210419565865642
+DepTime - ArrDelay Covariance: 1959.8300271311348 Correlation: 0.13674506236772438
+CRSDepTime - ArrDelay Covariance: 1297.2415935456784 Correlation: 0.09151179087636312
+CRSArrTime - ArrDelay Covariance: 1371.8320343135904 Correlation: 0.09373301706501655
+ArrDelay - ArrDelay Covariance: 902.8652941406144 Correlation: 1.0
+DepDelay - ArrDelay Covariance: 724.4825563838416 Correlation: 0.8772750673730099
+UniqueCarrier_index - ArrDelay Covariance: 2.710492756977041 Correlation: 0.01815732645248884
+Origin_index - ArrDelay Covariance: -33.26434182997116 Correlation: -0.027026460956988317
+Dest_index - ArrDelay Covariance: -11.387994086400338 Correlation: -0.009272414740742854
+root
+ |-- Year: integer (nullable = true)
+ |-- DepTime: double (nullable = false)
+ |-- CRSDepTime: double (nullable = false)
+ |-- CRSArrTime: double (nullable = false)
+ |-- UniqueCarrier: string (nullable = false)
+ |-- ArrDelay: double (nullable = false)
+ |-- DepDelay: double (nullable = false)
+ |-- Origin: string (nullable = false)
+ |-- Dest: string (nullable = false)
+ |-- UniqueCarrier_index: double (nullable = false)
+ |-- UniqueCarrier_encoded: vector (nullable = true)
+ |-- Origin_index: double (nullable = false)
+ |-- Origin_encoded: vector (nullable = true)
+ |-- Dest_index: double (nullable = false)
+ |-- Dest_encoded: vector (nullable = true)
+ |-- features: vector (nullable = true)
+
+Training stats:
+numIterations: 10
++--------------------+
+|           residuals|
++--------------------+
+| -0.1869545648631874|
+|-0.17411938047804387|
+|-0.16128419609289946|
+|-0.00726198347116...|
+|-0.25113048678891126|
+| -0.1099434585523209|
+|-0.17411938047804387|
+|-0.06997986352861396|
+|-0.36518910438694263|
+|  1.1496719252111518|
+|  1.2702199331090753|
+|  0.8667842421258314|
+|   1.005198782840523|
+|  0.5275244730682829|
+|  0.3367419415886985|
+|  0.2619896961875625|
+| 0.07449327884202006|
+|   0.105194996043938|
+|-0.03096068376102501|
+| 0.09170258883198201|
++--------------------+
+only showing top 20 rows
+
+RMSE: 0.30290033518651405
+r2: 0.9998982176146898
+Coefficients: [0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.9871648156148554,0.003573306563354331,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0]
+Intercept: 0.0714379053968866
+
+Metrics over test:
+Root Mean Squared Error (RMSE): 0.3038929959674386
+Mean Squared Error (MSE): 0.09235095299806563
+Mean Absolute Error (MAE): 0.17723443359777305
+R-squared (R2): 0.9998980940671224
+Execution time: 571.3907024860382 segs
