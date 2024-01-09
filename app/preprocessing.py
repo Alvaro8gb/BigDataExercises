@@ -102,12 +102,12 @@ def impute(df):
     return df
 
 
-def encode(df):
+def encode(df, target):
 
     string_columns = [column for column,
                       dtype in df.dtypes if dtype == 'string']
     numeric_columns = [column for column,
-                       dtype in df.dtypes if dtype in {'int', "double"}]
+                       dtype in df.dtypes if dtype in {'int', "double"} and column != target]
 
     print("Final String columns:", string_columns)
 
@@ -163,7 +163,7 @@ def preprocess(df, params: dict):
 
     df = impute(df)
 
-    df, numeric_columns = encode(df)
+    df, numeric_columns = encode(df, params["target"])
 
     df = drop_no_correlated(df, numeric_columns, params["target"], params["corr_th"])
 
