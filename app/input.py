@@ -55,4 +55,7 @@ def load_params(path: str) -> dict:
 
     validate_dictionary(params)
 
+    print("\nParamns:\n", json.dumps(params, indent=4))
+
+
     return params

@@ -22,7 +22,7 @@ def main(data_path: str, params_path: str, out_path: str = None):
         Returns: None
 
         Example:
-        >>> main("/path/to/data.csv", "/path/to/params.json")
+        >>> main("/path/to/data_folder/", "/path/to/params.json")
     """
 
     if out_path:
@@ -30,9 +30,9 @@ def main(data_path: str, params_path: str, out_path: str = None):
         create_folder_if_not_exists(out_path)
 
     
-    params = load_params(params_path)
+    print("Starting APP")
 
-    print("\nParamns:\n", params)
+    params = load_params(params_path)
 
     spark = SparkSession.builder.appName("FlightAnalysisApp").getOrCreate()
 
